@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-site-theme="auto">
 <head>
     <meta name="Content-Type" content="text/html;charset=utf-8">
     <meta name="Referrer" content="unsafe-url">
     <meta content="True" name="HandheldFriendly">
-    
-    <meta name="theme-color" content="#ffffff">
-    
     
     <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
@@ -32,13 +29,65 @@
             font-family: "Helvetica Neue", "Luxi Sans", "Segoe UI", "Hiragino Sans GB", "Microsoft Yahei", sans-serif, "Apple Logo";
         }
     </style>
-    <link rel="stylesheet" type="text/css" media="screen" href="/assets/5483a01f40e9f8e3369858c504a48d13d76b4d16-combo.css?t=1794663000">
+    <link rel="stylesheet" type="text/css" media="screen" href="/assets/1774faafcc6ef36da8ba55804c20bd4df82297a7-combo.css?t=1794751200">
     
-    <script>
-        const SITE_NIGHT = 0;
-    </script>
-    <link rel="stylesheet" href="/static/css/vendor/tomorrow.css?v=3c006808236080a5d98ba4e64b8f323f" type="text/css">
+
+
+
+
+
+<link rel="preload" as="style" href="/assets/c85f6bdf4f0b32950d5ee4dc8122b247d5348399-night.css?t=1794751200">
+<link rel="preload" as="style" href="/static/css/vendor/tomorrow-night.css?v=b0e517e91324470337a008bd08305fec">
+<link rel="preload" as="style" href="/static/css/vendor/tomorrow.css?v=3c006808236080a5d98ba4e64b8f323f">
+
+<script>
+    function siteThemeMedia(theme) {
+        return {
+            light: {light: 'all', dark: 'not all'},
+            dark: {light: 'not all', dark: 'screen'},
+            auto: {light: '(prefers-color-scheme: light)', dark: 'screen and (prefers-color-scheme: dark)'},
+        }[theme];
+    }
+    function setSiteThemeMedia(theme) {
+        const media = siteThemeMedia(theme);
+        document.documentElement.dataset.siteTheme = theme;
+        document.querySelectorAll('[data-theme-scheme]').forEach(function(element) {
+            element.setAttribute('media', media[element.dataset.themeScheme]);
+        });
+        return window.matchMedia(media.dark).matches;
+    }
+    function storedSiteTheme() {
+        let theme = null;
+        try {
+            theme = localStorage.getItem('siteTheme');
+        } catch (error) {
+            // Storage is blocked: auto.
+        }
+        
+        return ['light', 'dark', 'auto'].includes(theme) ? theme : 'auto';
+    }
+    function storeSiteTheme(theme) {
+        try {
+            localStorage.setItem('siteTheme', theme);
+        } catch (error) {
+            // Storage is blocked: the choice lasts for this page.
+        }
+    }
+    document.documentElement.dataset.siteTheme = storedSiteTheme();
     
+    document.write("\u003cmeta name=\"theme-color\" content=\"#ffffff\" media=\"$light\" data-theme-scheme=\"light\"\u003e\n\u003cmeta name=\"theme-color\" content=\"#18222d\" media=\"$dark\" data-theme-scheme=\"dark\"\u003e\n\u003clink rel=\"stylesheet\" type=\"text/css\" media=\"$dark\" href=\"/assets/c85f6bdf4f0b32950d5ee4dc8122b247d5348399-night.css?t=1794751200\" data-theme-scheme=\"dark\"\u003e\n\u003clink rel=\"stylesheet\" type=\"text/css\" media=\"$dark\" href=\"/static/css/vendor/tomorrow-night.css?v=b0e517e91324470337a008bd08305fec\" data-theme-scheme=\"dark\"\u003e\n\u003clink rel=\"stylesheet\" type=\"text/css\" media=\"$light\" href=\"/static/css/vendor/tomorrow.css?v=3c006808236080a5d98ba4e64b8f323f\" data-theme-scheme=\"light\"\u003e"
+        .replace(/\$light/g, siteThemeMedia(document.documentElement.dataset.siteTheme).light)
+        .replace(/\$dark/g, siteThemeMedia(document.documentElement.dataset.siteTheme).dark));
+    const SITE_NIGHT = window.matchMedia(siteThemeMedia(document.documentElement.dataset.siteTheme).dark).matches ? 1 : 0;
+    
+</script>
+
+<noscript><meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" data-theme-scheme="light">
+<meta name="theme-color" content="#18222d" media="screen and (prefers-color-scheme: dark)" data-theme-scheme="dark">
+<link rel="stylesheet" type="text/css" media="screen and (prefers-color-scheme: dark)" href="/assets/c85f6bdf4f0b32950d5ee4dc8122b247d5348399-night.css?t=1794751200" data-theme-scheme="dark">
+<link rel="stylesheet" type="text/css" media="screen and (prefers-color-scheme: dark)" href="/static/css/vendor/tomorrow-night.css?v=b0e517e91324470337a008bd08305fec" data-theme-scheme="dark">
+<link rel="stylesheet" type="text/css" media="(prefers-color-scheme: light)" href="/static/css/vendor/tomorrow.css?v=3c006808236080a5d98ba4e64b8f323f" data-theme-scheme="light"></noscript>
+
     <link rel="icon" sizes="192x192" href="/static/icon-192.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon-180.png?v=91e795b8b5d9e2cbf2d886c3d4b7d63c">
     
@@ -52,9 +101,9 @@
     <script>
         const LANG = 'enus';
         const FEATURES = ['search', 'favorite-nodes-sort'];
-        const SOLANA_WEB3_URL = '/assets/f6493ddb7835bc10ae580acdd2e161e012a316e4-solana-web3.js?t=1794663000';
+        const SOLANA_WEB3_URL = '/assets/f6493ddb7835bc10ae580acdd2e161e012a316e4-solana-web3.js?t=1794751200';
     </script>
-    <script src="/assets/fbcab59dbc3844e7dd24ed6b746481f427f99a50-combo.js?t=1794663000" defer></script>
+    <script src="/assets/3c8a6c81f543c4bba17212c45259ab7a66c57b1f-combo.js?t=1794751200" defer></script>
     <meta name="description" content="创意工作者的社区。讨论编程、设计、硬件、游戏等令人激动的话题。">
     
     <link rel="alternate" type="application/atom+xml" href="/feed/tab/tech.xml">
@@ -158,6 +207,7 @@ for (link in links) {
     </div>
     
     <div id="Wrapper">
+    <script>if (SITE_NIGHT) document.getElementById('Wrapper').classList.add('Night');</script>
         <div class="content">
             
             <div id="Leftbar"></div>
@@ -378,160 +428,160 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="box" id="TopicsHot">
     <div class="cell"><span class="fade">Today Top 10</span></div>
     
-    <div class="cell from_1055 hot_t_1256985">
+    <div class="cell from_1 hot_t_1257128">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/diudiuu"><img src="https://cdn.v2ex.com/avatar/53c0/4118/1055_normal.png?m=1794219750" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="diudiuu" data-uid="1055" /></a>
+                <a href="/member/Livid"><img src="https://cdn.v2ex.com/avatar/c4ca/4238/1_normal.png?m=1794670949" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="Livid" data-uid="1" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1256985">有小孩了,想每年给小孩存一点钱,大家推荐什么</a>
+                <a href="/t/1257128">关于设置中目前提供的 6 种楼中楼样式的 Demo</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_341618 hot_t_1256998">
+    <div class="cell from_477100 hot_t_1257214">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/luotao21"><img src="https://cdn.v2ex.com/gravatar/f26515d43c6ce33d1583e42ec12a0605?s=24&d=retro" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="luotao21" data-uid="341618" /></a>
+                <a href="/member/ttkit"><img src="https://cdn.v2ex.com/avatar/70ec/b9bd/477100_normal.png?m=1793611278" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="ttkit" data-uid="477100" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1256998">GPT 官 Key 免费用。蹬完即止</a>
+                <a href="/t/1257214">deepseek harness 的实际能力远超大多数人的认知，最近深度体验总结</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_336746 hot_t_1257001">
+    <div class="cell from_639671 hot_t_1257146">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/JohnXu20151211"><img src="https://cdn.v2ex.com/gravatar/58b49211768add9b479f99100faba14f?s=24&d=retro" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="JohnXu20151211" data-uid="336746" /></a>
+                <a href="/member/GoogolChrome111"><img src="https://cdn.v2ex.com/avatar/c2e5/5ac7/639671_normal.png?m=1793404001" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="GoogolChrome111" data-uid="639671" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1257001">国模真的还可以的</a>
+                <a href="/t/1257146">如果给计算机基础教材列一个「五大经典」，你会选哪几本</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_427671 hot_t_1256990">
+    <div class="cell from_463901 hot_t_1257169">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/jedeft"><img src="https://cdn.v2ex.com/gravatar/32c4cbaf6d15745f0c2582540a7038b7?s=24&d=retro" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="jedeft" data-uid="427671" /></a>
+                <a href="/member/Zhuzhuchenyan"><img src="https://cdn.v2ex.com/avatar/7c0c/20fd/463901_normal.png?m=1790773391" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="Zhuzhuchenyan" data-uid="463901" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1256990">很多火的东西，理解不了为什么火</a>
+                <a href="/t/1257169">闲聊聊到了我司当前接入 AI 的年度成本</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_53526 hot_t_1257008">
+    <div class="cell from_253831 hot_t_1257174">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/grandlq"><img src="https://cdn.v2ex.com/avatar/e837/5912/53526_normal.png?m=1792691692" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="grandlq" data-uid="53526" /></a>
+                <a href="/member/falsemask"><img src="https://cdn.v2ex.com/avatar/8241/e21f/253831_normal.png?m=1794715224" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="falsemask" data-uid="253831" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1257008">睡前安排了一整晚的 agent 全自动任务，一觉醒来被 Windows 自动更新重启杀了</a>
+                <a href="/t/1257174">记录第一次相亲</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_212144 hot_t_1257030">
+    <div class="cell from_803891 hot_t_1257158">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/ae"><img src="https://cdn.v2ex.com/avatar/7f1c/a67f/212144_normal.png?m=1794635283" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="ae" data-uid="212144" /></a>
+                <a href="/member/chirsxp"><img src="https://cdn.v2ex.com/gravatar/9f191965d9f820691380db402f1a94e5?s=24&d=retro" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="chirsxp" data-uid="803891" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1257030">iOS 原生多论坛客户端： V2EX / NGA / Linux .do / Chiphell / 4D4Y 一个 App 刷，抽 10 个半年 Pro</a>
+                <a href="/t/1257158">打算购买 Claude Team 成品号，这种号的风险跟稳定性怎么样？</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_601240 hot_t_1256987">
+    <div class="cell from_1 hot_t_1257127">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/codelover612"><img src="https://cdn.v2ex.com/avatar/e548/daa0/601240_normal.png?m=1752506327" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="codelover612" data-uid="601240" /></a>
+                <a href="/member/Livid"><img src="https://cdn.v2ex.com/avatar/c4ca/4238/1_normal.png?m=1794670949" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="Livid" data-uid="1" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1256987">最近做了一个运行在 iPhone 的 agent</a>
+                <a href="/t/1257127">20261114 - 楼中楼样式、黑暗模式可以自动跟随系统设置及 Solana 买入按钮的额外铜币奖励</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_553614 hot_t_1257002">
+    <div class="cell from_749385 hot_t_1257229">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/syh2"><img src="https://cdn.v2ex.com/avatar/7761/b868/553614_normal.png?m=1761704153" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="syh2" data-uid="553614" /></a>
+                <a href="/member/OpenList"><img src="https://cdn.v2ex.com/avatar/e047/059a/749385_normal.png?m=1792161605" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="OpenList" data-uid="749385" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1257002">换了个新 macbook air m5 有没有推荐的软件安装</a>
+                <a href="/t/1257229">又被淘宝双 11 背刺了</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_553614 hot_t_1257035">
+    <div class="cell from_347241 hot_t_1257168">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/syh2"><img src="https://cdn.v2ex.com/avatar/7761/b868/553614_normal.png?m=1761704153" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="syh2" data-uid="553614" /></a>
+                <a href="/member/MYI"><img src="https://cdn.v2ex.com/avatar/05ea/33c1/347241_normal.png?m=1794711498" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="MYI" data-uid="347241" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1257035">纠结， Mac 有必要买 AC+么</a>
+                <a href="/t/1257168">哈哈哈喜报，做的垂直分享发现优质产品社区，注册用户超 2000+，收录/发布产品超 1000+啦～</a>
                 </span>
             </td>
         </tr>
     </table>
     </div>
 
-    <div class="cell from_543066 hot_t_1256988">
+    <div class="cell from_630832 hot_t_1257137">
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             <td width="24" valign="middle" align="center">
-                <a href="/member/Erniu"><img src="https://cdn.v2ex.com/avatar/5298/722b/543066_normal.png?m=1793331380" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="Erniu" data-uid="543066" /></a>
+                <a href="/member/chenlide"><img src="https://cdn.v2ex.com/gravatar/eb6314aa9cb4a99d1c624de12f937614?s=24&d=retro" class="avatar" border="0" align="default" width="24" style="width: 24px; max-height: 24px;" alt="chenlide" data-uid="630832" /></a>
             </td>
             <td width="10"></td>
             <td width="auto" valign="middle">
                 <span class="item_hot_topic_title">
-                <a href="/t/1256988">会不会有一天再也看不到人写的东西了</a>
+                <a href="/t/1257137">两个 Claude Pro 号 KYC，两个号都找 KYC 代过，一个号秒封，一个号现在还活着</a>
                 </span>
             </td>
         </tr>
@@ -559,9 +609,9 @@ document.addEventListener('DOMContentLoaded', function() {
         <span style="flex: 1;">Site of the Day</span>
     </div>
     <div class="cell flex-one-row" style="gap: 5px;">
-        <div style="flex: 1;" class="f16"><a href="https://rokcso.com/" target="_blank">Rokcso&#39;s Blog</a></div>
-        <span class="f12 fade">45 篇文章</span>
-        <a href="https://rokcso.com/index.xml" target="_blank"><img src="/static/img/rss@2x.png" width="16" style="display: block" alt="feed address" border="0" /></a>
+        <div style="flex: 1;" class="f16"><a href="https://blog.dejavu.moe/" target="_blank">Dejavu&#39;s Blog</a></div>
+        <span class="f12 fade">134 篇文章</span>
+        <a href="https://blog.dejavu.moe/index.xml" target="_blank"><img src="/static/img/rss@2x.png" width="16" style="display: block" alt="feed address" border="0" /></a>
     </div>
 </div>
 
@@ -569,7 +619,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="box">
     <div class="cell"><div class="fr"></div><span class="fade">最近新增节点</span></div>
     <div class="cell">
-        <a href="/go/siliconlife" class="item_node">硅基生活</a><a href="/go/vastlogic" class="item_node">Vast Logic</a><a href="/go/jev" class="item_node">Jev</a><a href="/go/e-bike" class="item_node">二轮电动车</a><a href="/go/minimalism" class="item_node">极简主义</a><a href="/go/solodeveloper" class="item_node">独立开发</a><a href="/go/donald" class="item_node">唐纳德</a><a href="/go/sunge" class="item_node">孙宇晨</a><a href="/go/jiaxing" class="item_node">嘉兴</a><a href="/go/harmonyos" class="item_node">鸿蒙</a><a href="/go/t1ngtng" class="item_node">t1ngtng</a><a href="/go/binance" class="item_node">币安</a><a href="/go/niulai" class="item_node">牛来</a><a href="/go/unemployed" class="item_node">失业 <i class="fa fa-lock gray"></i></a><a href="/go/layoff" class="item_node">裁员</a><a href="/go/hefei" class="item_node">合肥</a><a href="/go/omarchy" class="item_node">Omarchy</a><a href="/go/barbery" class="item_node">barbery</a><a href="/go/glm" class="item_node">智谱</a><a href="/go/stocktrading" class="item_node">炒股</a>
+        <a href="/go/exe" class="item_node">exe</a><a href="/go/byz" class="item_node">宝鸭子战记</a><a href="/go/siliconlife" class="item_node">硅基生活</a><a href="/go/vastlogic" class="item_node">Vast Logic</a><a href="/go/jev" class="item_node">Jev</a><a href="/go/e-bike" class="item_node">二轮电动车</a><a href="/go/minimalism" class="item_node">极简主义</a><a href="/go/solodeveloper" class="item_node">独立开发</a><a href="/go/donald" class="item_node">唐纳德</a><a href="/go/sunge" class="item_node">孙宇晨</a><a href="/go/jiaxing" class="item_node">嘉兴</a><a href="/go/harmonyos" class="item_node">鸿蒙</a><a href="/go/t1ngtng" class="item_node">t1ngtng</a><a href="/go/binance" class="item_node">币安</a><a href="/go/niulai" class="item_node">牛来</a><a href="/go/unemployed" class="item_node">失业 <i class="fa fa-lock gray"></i></a><a href="/go/layoff" class="item_node">裁员</a><a href="/go/hefei" class="item_node">合肥</a><a href="/go/omarchy" class="item_node">Omarchy</a><a href="/go/barbery" class="item_node">barbery</a>
     </div>
     <div class="inner flex-one-row gap10">
         <span>✨</span>
@@ -583,7 +633,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="box">
     <div class="cell"><span class="gray">Word of the Day</span></div>
     <div class="inner">
-        <span style="font-family: serif; font-size: 16px; font-weight: 500;"><a href="/d/reeducation">reeducation</a></span>
+        <span style="font-family: serif; font-size: 16px; font-weight: 500;"><a href="/d/workability">workability</a></span>
     </div>
 </div>
 
@@ -594,15 +644,15 @@ document.addEventListener('DOMContentLoaded', function() {
         <table cellpadding="5" cellspacing="0" border="0" width="100%">
             <tr>
                 <td width="60" align="right"><span class="gray">注册会员</span></td>
-                <td width="auto" align="left"><strong>864,214</strong></td>
+                <td width="auto" align="left"><strong>864,436</strong></td>
             </tr>
             <tr>
                 <td width="60" align="right"><span class="gray">主题</span></td>
-                <td width="auto" align="left"><strong>1,257,100</strong></td>
+                <td width="auto" align="left"><strong>1,257,247</strong></td>
             </tr>
             <tr>
                 <td width="60" align="right"><span class="gray">回复</span></td>
-                <td width="auto" align="left"><strong>18,291,503</strong></td>
+                <td width="auto" align="left"><strong>18,292,910</strong></td>
             </tr>
         </table>
     </div>
@@ -658,16 +708,16 @@ document.addEventListener('DOMContentLoaded', function() {
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             
-            <td width="48" valign="top" align="center"><a href="/member/ccai"><img src="https://cdn.v2ex.com/gravatar/e8b88983426399f8402bd93f2b96b836?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="ccai" data-uid="789859" /></a></td>
+            <td width="48" valign="top" align="center"><a href="/member/ttkit"><img src="https://cdn.v2ex.com/avatar/70ec/b9bd/477100_xlarge.png?m=1793611278" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="ttkit" data-uid="477100" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257073#reply11" class="topic-link" id="topic-link-1257073">有没有 V 友自己搭建过云手机？想实现网页远程操作，不想再用第三方云手机了</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257214#reply57" class="topic-link" id="topic-link-1257214">deepseek harness 的实际能力远超大多数人的认知，最近深度体验总结</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/android">Android</a> &nbsp;•&nbsp; <strong><a href="/member/ccai">ccai</a></strong> &nbsp;<div class="badges"><div class="badge pro">PRO</div></div> &nbsp;•&nbsp; <span title="2026-11-14 21:32:20 +08:00">6 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/oakleycc">oakleycc</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/ttkit">ttkit</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 22:02:57 +08:00">2 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/dawee2y">dawee2y</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
-                <a href="/t/1257073#reply11" class="count_livid">11</a>
+                <a href="/t/1257214#reply57" class="count_livid">57</a>
                 
             </td>
         </tr>
@@ -691,16 +741,16 @@ document.addEventListener('DOMContentLoaded', function() {
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             
-            <td width="48" valign="top" align="center"><a href="/member/chenzw2"><img src="https://cdn.v2ex.com/gravatar/6ef3656bd3753750f8c7bd933c0d030c?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="chenzw2" data-uid="551714" /></a></td>
+            <td width="48" valign="top" align="center"><a href="/member/grandlq"><img src="https://cdn.v2ex.com/avatar/e837/5912/53526_xlarge.png?m=1792691692" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="grandlq" data-uid="53526" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257091#reply4" class="topic-link" id="topic-link-1257091">xxl-job 是放弃维护了吗？ PG 版本的兼容 PR 提了那么长时间都没人合并，还没有更好的组件选择？</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257201#reply7" class="topic-link" id="topic-link-1257201">Olea：真正跑在手机上、能控制手机的 Agent 应用</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/chenzw2">chenzw2</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:18:00 +08:00">21 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/itnoob">itnoob</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/grandlq">grandlq</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:48:04 +08:00">17 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Aprilming">Aprilming</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
-                <a href="/t/1257091#reply4" class="count_livid">4</a>
+                <a href="/t/1257201#reply7" class="count_livid">7</a>
                 
             </td>
         </tr>
@@ -724,14 +774,113 @@ document.addEventListener('DOMContentLoaded', function() {
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             
-            <td width="48" valign="top" align="center"><a href="/member/firesh"><img src="https://cdn.v2ex.com/gravatar/b4fa6c0ca4363d2645d8f92c5456d500?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="firesh" data-uid="48592" /></a></td>
+            <td width="48" valign="top" align="center"><a href="/member/spikedingo"><img src="https://cdn.v2ex.com/gravatar/3875f254bd55d885976e51c8f0643573?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="spikedingo" data-uid="191143" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257099#reply0" class="topic-link" id="topic-link-1257099">Grok Bot 用 Claude，符合服务条款了吧</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257228#reply2" class="topic-link" id="topic-link-1257228">想上手本地 llm，m3max 128gb 内存有没有什么适合和推荐的玩法？</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/firesh">firesh</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:17:35 +08:00">21 mins ago</span></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/localllm">Local LLM</a> &nbsp;•&nbsp; <strong><a href="/member/spikedingo">spikedingo</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:48:00 +08:00">17 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/hackyuan">hackyuan</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257228#reply2" class="count_livid">2</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/FawkesV"><img src="https://cdn.v2ex.com/avatar/b79c/a024/520829_large.png?m=1794743123" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="FawkesV" data-uid="520829" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257235#reply5" class="topic-link" id="topic-link-1257235">十年 Java 终于借助 AI 做了个东西出来 用 AI 给亲戚家小厂搓了个轻量进销存，基础版已开源</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/FawkesV">FawkesV</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:36:03 +08:00">29 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/beyondgamp">beyondgamp</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257235#reply5" class="count_livid">5</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/467469274"><img src="https://cdn.v2ex.com/gravatar/08c826cacb7705a93194ce9b2b24d25c?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="467469274" data-uid="412202" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257242#reply0" class="topic-link" id="topic-link-1257242">qoder 怎么领国际版的鸡蛋？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/467469274">467469274</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:44:58 +08:00">1h 20m ago</span></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/mdcaqr"><img src="https://cdn.v2ex.com/gravatar/62e6c5c475edbf18a9e4a628a071e001?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="mdcaqr" data-uid="478345" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257200#reply11" class="topic-link" id="topic-link-1257200">老号门户验证中国护照秒封吗？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/mdcaqr">mdcaqr</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:37:33 +08:00">1h 27m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257200#reply11" class="count_livid">11</a>
                 
             </td>
         </tr>
@@ -758,11 +907,473 @@ document.addEventListener('DOMContentLoaded', function() {
             <td width="48" valign="top" align="center"><a href="/member/qaz793"><img src="https://cdn.v2ex.com/gravatar/f5509b1a5185a3ba32c30b7dece719cd?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="qaz793" data-uid="74452" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257097#reply0" class="topic-link" id="topic-link-1257097">请大佬推荐一下 可以支持 Claude Desktop 桌面版 可通过「开发者模式」中转站，谢谢</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257194#reply7" class="topic-link" id="topic-link-1257194">各位大佬，能否有哪个工具，可以检测中转站是否掺水</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/qaz793">qaz793</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:15:43 +08:00">23 mins ago</span></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/qaz793">qaz793</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:19:48 +08:00">1h 45m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/yidinghe">yidinghe</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257194#reply7" class="count_livid">7</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/ab"><img src="https://cdn.v2ex.com/avatar/2cd8/7697/76017_xlarge.png?m=1725000948" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="ab" data-uid="76017" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257180#reply9" class="topic-link" id="topic-link-1257180">南大镜像站的证书过期了</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/linux">Linux</a> &nbsp;•&nbsp; <strong><a href="/member/ab">ab</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 19:58:25 +08:00">2h 6m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/getadoggie">getadoggie</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257180#reply9" class="count_livid">9</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/grandlq"><img src="https://cdn.v2ex.com/avatar/e837/5912/53526_xlarge.png?m=1792691692" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="grandlq" data-uid="53526" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257223#reply4" class="topic-link" id="topic-link-1257223">哪种 agent 应用形式是未来：Orchestrator，还是 All-in-One?</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/grandlq">grandlq</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:26:03 +08:00">39 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Need4more">Need4more</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257223#reply4" class="count_livid">4</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/chirsxp"><img src="https://cdn.v2ex.com/gravatar/9f191965d9f820691380db402f1a94e5?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="chirsxp" data-uid="803891" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257158#reply25" class="topic-link" id="topic-link-1257158">打算购买 Claude Team 成品号，这种号的风险跟稳定性怎么样？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/chirsxp">chirsxp</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:33:58 +08:00">1h 31m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Allenqjy">Allenqjy</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257158#reply25" class="count_livid">25</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/bihui"><img src="https://cdn.v2ex.com/avatar/2398/c399/307908_large.png?m=1626184554" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="bihui" data-uid="307908" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257244#reply0" class="topic-link" id="topic-link-1257244">除了 qoder 还有啥工具调试 windows 程序可以不占用屏幕?</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/bihui">bihui</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:55:57 +08:00">1h 9m ago</span></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/467469274"><img src="https://cdn.v2ex.com/gravatar/08c826cacb7705a93194ce9b2b24d25c?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="467469274" data-uid="412202" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257183#reply1" class="topic-link" id="topic-link-1257183">被封之后解封 是不是就可以开 max 了？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/467469274">467469274</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 16:09:13 +08:00">5h 56m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/milkleeeeee">milkleeeeee</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257183#reply1" class="count_livid">1</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/changdy"><img src="https://cdn.v2ex.com/avatar/97c2/a0ff/166121_large.png?m=1788512377" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="changdy" data-uid="166121" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257192#reply4" class="topic-link" id="topic-link-1257192">求推荐下 claude 中转站--内附详细要求</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/changdy">changdy</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:55:07 +08:00">10 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/changdy">changdy</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257192#reply4" class="count_livid">4</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/simyoo"><img src="https://cdn.v2ex.com/gravatar/deffed25ff4f7a112cca46ed444ae784?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="simyoo" data-uid="420724" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257170#reply15" class="topic-link" id="topic-link-1257170">有没有 Claude portal 验证一直在验证中的 v 友</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/simyoo">simyoo</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:16:13 +08:00">1h 49m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/simyoo">simyoo</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257170#reply15" class="count_livid">15</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/ccai"><img src="https://cdn.v2ex.com/gravatar/e8b88983426399f8402bd93f2b96b836?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="ccai" data-uid="789859" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257073#reply27" class="topic-link" id="topic-link-1257073">有没有 V 友自己搭建过云手机？想实现网页远程操作，不想再用第三方云手机了</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/android">Android</a> &nbsp;•&nbsp; <strong><a href="/member/ccai">ccai</a></strong> &nbsp;<div class="badges"><div class="badge pro">PRO</div></div> &nbsp;•&nbsp; <span title="2026-11-15 14:22:13 +08:00">7h 43m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/zhanying">zhanying</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257073#reply27" class="count_livid">27</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/amzzoo"><img src="https://cdn.v2ex.com/gravatar/26c9fcce93f95a543b2c38923b0ccf4b?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="amzzoo" data-uid="864035" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257197#reply4" class="topic-link" id="topic-link-1257197">放一台 mini 主机在国外，通过远程连接 ，发现一个大问题。</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/amzzoo">amzzoo</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:16:13 +08:00">1h 49m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/terrancesiu">terrancesiu</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257197#reply4" class="count_livid">4</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/LeviMarvin"><img src="https://cdn.v2ex.com/avatar/2426/6c4f/526568_xlarge.png?m=1773377792" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="LeviMarvin" data-uid="526568" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257054#reply22" class="topic-link" id="topic-link-1257054">AI 时代，程序员正在慢慢转向产品经理</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/LeviMarvin">LeviMarvin</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:22:40 +08:00">1h 42m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/spark">spark</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257054#reply22" class="count_livid">22</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/chenlide"><img src="https://cdn.v2ex.com/gravatar/eb6314aa9cb4a99d1c624de12f937614?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="chenlide" data-uid="630832" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257137#reply15" class="topic-link" id="topic-link-1257137">两个 Claude Pro 号 KYC，两个号都找 KYC 代过，一个号秒封，一个号现在还活着</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/chenlide">chenlide</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 10:16:10 +08:00">11h 49m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/chenlide">chenlide</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257137#reply15" class="count_livid">15</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/aozhou"><img src="https://cdn.v2ex.com/gravatar/c3874cf505801e5fded023bd492eaa8a?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="aozhou" data-uid="433163" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257172#reply10" class="topic-link" id="topic-link-1257172">怎么你们被 claude 封又是申诉成功，又是苹果退款的？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/aozhou">aozhou</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:41:45 +08:00">23 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Lukedis">Lukedis</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257172#reply10" class="count_livid">10</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/intoext"><img src="https://cdn.v2ex.com/avatar/16dc/e148/243325_large.png?m=1688862810" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="intoext" data-uid="243325" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257021#reply23" class="topic-link" id="topic-link-1257021">有些程序员（产品经理）的脑回路秀逗了吧？ 就拿咪咕视频来说</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/intoext">intoext</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 12:49:08 +08:00">9h 16m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/shuangchun">shuangchun</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257021#reply23" class="count_livid">23</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/takemefly"><img src="https://cdn.v2ex.com/gravatar/b964e519adc9e98c06e988a5ef41e5c9?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="takemefly" data-uid="392130" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257015#reply23" class="topic-link" id="topic-link-1257015">重度使用 Claude Code / Codex 两个月，我怎么感觉自己快废了，反而更焦虑了？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/takemefly">takemefly</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 17:25:43 +08:00">4h 39m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/gaoyupis">gaoyupis</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257015#reply23" class="count_livid">23</a>
                 
             </td>
         </tr>
@@ -789,13 +1400,341 @@ document.addEventListener('DOMContentLoaded', function() {
             <td width="48" valign="top" align="center"><a href="/member/Tory12138"><img src="https://cdn.v2ex.com/gravatar/ca8de5ce310c84ec0abf08eb3f12b068?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="Tory12138" data-uid="818002" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257042#reply6" class="topic-link" id="topic-link-1257042">Claude 代充跳 kyc 被封都是不退款的吗</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257042#reply17" class="topic-link" id="topic-link-1257042">Claude 代充跳 kyc 被封都是不退款的吗</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/Tory12138">Tory12138</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:31:50 +08:00">7 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Tory12138">Tory12138</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/Tory12138">Tory12138</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 10:28:33 +08:00">11h 36m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/SayHelloHi">SayHelloHi</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
-                <a href="/t/1257042#reply6" class="count_livid">6</a>
+                <a href="/t/1257042#reply17" class="count_livid">17</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/qaz793"><img src="https://cdn.v2ex.com/gravatar/f5509b1a5185a3ba32c30b7dece719cd?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="qaz793" data-uid="74452" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257097#reply6" class="topic-link" id="topic-link-1257097">请大佬推荐一下 可以支持 Claude Desktop 桌面版 可通过「开发者模式」中转站，谢谢</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/qaz793">qaz793</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 14:25:41 +08:00">7h 39m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/cobbx">cobbx</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257097#reply6" class="count_livid">6</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/serenader"><img src="https://cdn.v2ex.com/avatar/f0d6/757d/45878_large.png?m=1686450098" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="serenader" data-uid="45878" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257045#reply18" class="topic-link" id="topic-link-1257045">分享一下 claude portal kyc 后用护照认证被封但又申诉成功的经历</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/serenader">serenader</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 14:12:59 +08:00">7h 52m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Chuizi997">Chuizi997</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257045#reply18" class="count_livid">18</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/chenzw2"><img src="https://cdn.v2ex.com/gravatar/6ef3656bd3753750f8c7bd933c0d030c?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="chenzw2" data-uid="551714" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257091#reply9" class="topic-link" id="topic-link-1257091">xxl-job 是放弃维护了吗？ PG 版本的兼容 PR 提了那么长时间都没人合并，还没有更好的组件选择？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/chenzw2">chenzw2</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 09:47:37 +08:00">12h 17m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/coolcoffee">coolcoffee</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257091#reply9" class="count_livid">9</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/lyq871011"><img src="https://cdn.v2ex.com/gravatar/7bce25581e1333a3b5266f9a77df73d5?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="lyq871011" data-uid="416255" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257062#reply9" class="topic-link" id="topic-link-1257062">请问上班族, 后端开发, 订阅 claude x5 还是 x20 ?</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/lyq871011">lyq871011</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 17:38:07 +08:00">4h 27m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/cmsyh29">cmsyh29</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257062#reply9" class="count_livid">9</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/yicheng47"><img src="https://cdn.v2ex.com/avatar/cf46/ac75/810869_xlarge.png?m=1793451536" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="yicheng47" data-uid="810869" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257131#reply0" class="topic-link" id="topic-link-1257131">Runner iPhone 版开启 TestFlight 内测：在手机上看终端、回消息、带 crew 干活</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/yicheng47">yicheng47</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 00:24:00 +08:00">21h 41m ago</span></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/InterestingWorld"><img src="https://cdn.v2ex.com/gravatar/bca5eb895033bedede9a419eec7f34ce?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="InterestingWorld" data-uid="472955" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257123#reply1" class="topic-link" id="topic-link-1257123">portal kyc 使用 personal 认证完成后又回到 start</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/InterestingWorld">InterestingWorld</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 00:00:34 +08:00">22h 4m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/mdcaqr">mdcaqr</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257123#reply1" class="count_livid">1</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/firesh"><img src="https://cdn.v2ex.com/gravatar/b4fa6c0ca4363d2645d8f92c5456d500?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="firesh" data-uid="48592" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257099#reply4" class="topic-link" id="topic-link-1257099">Grok Bot 用 Claude，符合服务条款了吧</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/firesh">firesh</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 16:17:16 +08:00">5h 47m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/wisteen">wisteen</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257099#reply4" class="count_livid">4</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/jiuzhougege"><img src="https://cdn.v2ex.com/avatar/f424/f3fd/687771_xlarge.png?m=1732367926" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="jiuzhougege" data-uid="687771" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257016#reply6" class="topic-link" id="topic-link-1257016">送的 100$ API 额度，用了大约 6000 万 token 后耗尽了， astra-中</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/jiuzhougege">jiuzhougege</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 18:31:02 +08:00">3h 34m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/jiuzhougege">jiuzhougege</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257016#reply6" class="count_livid">6</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/467469274"><img src="https://cdn.v2ex.com/gravatar/08c826cacb7705a93194ce9b2b24d25c?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="467469274" data-uid="412202" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257064#reply11" class="topic-link" id="topic-link-1257064">portal 后中国护照验证被封，然后申请解封掉了</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/467469274">467469274</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 16:55:55 +08:00">5h 9m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/SLboat">SLboat</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257064#reply11" class="count_livid">11</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/Ryanzlab"><img src="https://cdn.v2ex.com/avatar/3bc1/3ed6/637456_xlarge.png?m=1789982955" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="Ryanzlab" data-uid="637456" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257188#reply5" class="topic-link" id="topic-link-1257188">从目前趋势来看 Claude 会成为中国人新时代的奢侈品</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/Ryanzlab">Ryanzlab</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:59:52 +08:00">1h 5m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/bihui">bihui</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257188#reply5" class="count_livid">5</a>
                 
             </td>
         </tr>
@@ -824,143 +1763,11 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257078#reply2" class="topic-link" id="topic-link-1257078">苹果开发者续费问题</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/idev">iDev</a> &nbsp;•&nbsp; <strong><a href="/member/Michael1028">Michael1028</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:12:27 +08:00">26 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Lukedis">Lukedis</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/idev">iDev</a> &nbsp;•&nbsp; <strong><a href="/member/Michael1028">Michael1028</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:12:27 +08:00">1 day ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Lukedis">Lukedis</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
                 <a href="/t/1257078#reply2" class="count_livid">2</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/LeviMarvin"><img src="https://cdn.v2ex.com/avatar/2426/6c4f/526568_xlarge.png?m=1773377792" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="LeviMarvin" data-uid="526568" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257054#reply11" class="topic-link" id="topic-link-1257054">AI 时代，程序员正在慢慢转向产品经理</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/LeviMarvin">LeviMarvin</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:25:20 +08:00">13 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/fatigue">fatigue</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257054#reply11" class="count_livid">11</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/intoext"><img src="https://cdn.v2ex.com/avatar/16dc/e148/243325_large.png?m=1688862810" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="intoext" data-uid="243325" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257021#reply17" class="topic-link" id="topic-link-1257021">有些程序员（产品经理）的脑回路秀逗了吧？ 就拿咪咕视频来说</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/intoext">intoext</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:06:33 +08:00">32 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/realpg">realpg</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257021#reply17" class="count_livid">17</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/takemefly"><img src="https://cdn.v2ex.com/gravatar/b964e519adc9e98c06e988a5ef41e5c9?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="takemefly" data-uid="392130" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257015#reply15" class="topic-link" id="topic-link-1257015">重度使用 Claude Code / Codex 两个月，我怎么感觉自己快废了，反而更焦虑了？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/takemefly">takemefly</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:36:28 +08:00">1h 2m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/tianyudi1982">tianyudi1982</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257015#reply15" class="count_livid">15</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/sqlpxc"><img src="https://cdn.v2ex.com/gravatar/c26a2e9c12eef821efd1e4fb342e5385?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="sqlpxc" data-uid="597703" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257076#reply11" class="topic-link" id="topic-link-1257076">我自己开发了一个远程控制软件 Airhand 欢迎 star~ 支持 120fps</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/sqlpxc">sqlpxc</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:19:06 +08:00">20 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/sqlpxc">sqlpxc</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257076#reply11" class="count_livid">11</a>
                 
             </td>
         </tr>
@@ -989,9 +1796,42 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257087#reply0" class="topic-link" id="topic-link-1257087">做了一份 AI 顶会论文数据集&amp;一份具身智能数据集，有需要的自取~</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/cs1707">cs1707</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:47:33 +08:00">1h 51m ago</span></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/cs1707">cs1707</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:47:33 +08:00">1 day ago</span></span>
             </td>
             <td width="70" align="right" valign="middle">
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/MajestySolor"><img src="https://cdn.v2ex.com/avatar/e89c/8c25/17318_xlarge.png?m=1777270881" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="MajestySolor" data-uid="17318" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256975#reply13" class="topic-link" id="topic-link-1256975">‘AI 取代人类’的另一种解读</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/MajestySolor">MajestySolor</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 20:07:12 +08:00">1h 58m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/MajestySolor">MajestySolor</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256975#reply13" class="count_livid">13</a>
                 
             </td>
         </tr>
@@ -1020,7 +1860,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257048#reply8" class="topic-link" id="topic-link-1257048">ChatGPT 开始让 agent 帮你刷卡付钱了</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/chunyucaitom">chunyucaitom</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 18:54:41 +08:00">2h 44m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/cz5424">cz5424</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/chunyucaitom">chunyucaitom</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 18:54:41 +08:00">1 day ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/cz5424">cz5424</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
@@ -1048,276 +1888,16 @@ document.addEventListener('DOMContentLoaded', function() {
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             
-            <td width="48" valign="top" align="center"><a href="/member/TonyBoney"><img src="https://cdn.v2ex.com/gravatar/32c05cced92863cb5621bd18da1b3e6d?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="TonyBoney" data-uid="741348" /></a></td>
+            <td width="48" valign="top" align="center"><a href="/member/iv8d"><img src="https://cdn.v2ex.com/avatar/2273/0636/253364_large.png?m=1749459724" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="iv8d" data-uid="253364" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257077#reply0" class="topic-link" id="topic-link-1257077">Ubuntu 26.04 遇到 free -h 和 htop 查不出来的诡异 OOM 内存不足，由 KHO 的 CMA 导致</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256746#reply33" class="topic-link" id="topic-link-1256746">codex 今天蠢得很</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/linux">Linux</a> &nbsp;•&nbsp; <strong><a href="/member/TonyBoney">TonyBoney</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 18:27:37 +08:00">3h 11m ago</span></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/iv8d">iv8d</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 15:37:55 +08:00">6h 27m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/oop12">oop12</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/serenader"><img src="https://cdn.v2ex.com/avatar/f0d6/757d/45878_large.png?m=1686450098" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="serenader" data-uid="45878" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257045#reply7" class="topic-link" id="topic-link-1257045">分享一下 claude portal kyc 后用护照认证被封但又申诉成功的经历</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/serenader">serenader</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 18:23:38 +08:00">3h 15m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Yukiteru">Yukiteru</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257045#reply7" class="count_livid">7</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/467469274"><img src="https://cdn.v2ex.com/gravatar/08c826cacb7705a93194ce9b2b24d25c?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="467469274" data-uid="412202" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257064#reply6" class="topic-link" id="topic-link-1257064">portal 后中国护照验证被封，然后申请解封掉了</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/467469274">467469274</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 18:41:33 +08:00">2h 57m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/467469274">467469274</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257064#reply6" class="count_livid">6</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/lowfrontend"><img src="https://cdn.v2ex.com/avatar/ccf4/6bbb/475913_xlarge.png?m=1790146404" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="lowfrontend" data-uid="475913" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256934#reply15" class="topic-link" id="topic-link-1256934">用护照的日签页面，选择日本 visa，通过了 portal claude KYC</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/lowfrontend">lowfrontend</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 16:54:18 +08:00">4h 44m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/dcvsiug">dcvsiug</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256934#reply15" class="count_livid">15</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/wang1c"><img src="https://cdn.v2ex.com/avatar/d720/9dcc/603540_xlarge.png?m=1787987107" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="wang1c" data-uid="603540" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257052#reply2" class="topic-link" id="topic-link-1257052">2 年的老号弹 kyc 了 真难绷啊</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/wang1c">wang1c</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:03:23 +08:00">1h 35m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/yaleax">yaleax</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257052#reply2" class="count_livid">2</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/jiuzhougege"><img src="https://cdn.v2ex.com/avatar/f424/f3fd/687771_xlarge.png?m=1732367926" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="jiuzhougege" data-uid="687771" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257016#reply4" class="topic-link" id="topic-link-1257016">送的 100$ API 额度，用了大约 6000 万 token 后耗尽了， astra-中</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/jiuzhougege">jiuzhougege</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 15:43:29 +08:00">5h 55m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Lukedis">Lukedis</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257016#reply4" class="count_livid">4</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/OUBA100"><img src="https://cdn.v2ex.com/avatar/8824/3ba1/694534_xlarge.png?m=1791620577" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="OUBA100" data-uid="694534" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256817#reply33" class="topic-link" id="topic-link-1256817">Opus 5.5 也做不到一步到位啊</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/OUBA100">OUBA100</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 14:41:43 +08:00">6h 57m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/COW">COW</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256817#reply33" class="count_livid">33</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/YanSeven"><img src="https://cdn.v2ex.com/avatar/3f22/feff/383743_xlarge.png?m=1793162364" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="YanSeven" data-uid="383743" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257036#reply0" class="topic-link" id="topic-link-1257036">chatgpt 的 dots 每隔两三天就把它内置的虚拟机环境换掉，何意义？？怕用户白嫖它虚拟机？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/YanSeven">YanSeven</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 14:39:45 +08:00">6h 59m ago</span></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/wilddog"><img src="https://cdn.v2ex.com/avatar/83b7/1955/111458_xlarge.png?m=1767332478" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="wilddog" data-uid="111458" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256551#reply119" class="topic-link" id="topic-link-1256551">本月起正式停止续费 codex 了</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/wilddog">wilddog</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:36:52 +08:00">2h 2m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/To5tE">To5tE</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256551#reply119" class="count_livid">119</a>
+                <a href="/t/1256746#reply33" class="count_livid">33</a>
                 
             </td>
         </tr>
@@ -1344,13 +1924,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <td width="48" valign="top" align="center"><a href="/member/WuLiSenSen"><img src="https://cdn.v2ex.com/avatar/7671/d43a/653789_xlarge.png?m=1696779259" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="WuLiSenSen" data-uid="653789" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256850#reply45" class="topic-link" id="topic-link-1256850">现在不想折腾的话，是不是只能选择中转站了？</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256850#reply47" class="topic-link" id="topic-link-1256850">现在不想折腾的话，是不是只能选择中转站了？</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/WuLiSenSen">WuLiSenSen</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 16:34:00 +08:00">5h 5m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/fareware">fareware</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/WuLiSenSen">WuLiSenSen</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 14:38:28 +08:00">7h 26m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/cobbx">cobbx</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
-                <a href="/t/1256850#reply45" class="count_livid">45</a>
+                <a href="/t/1256850#reply47" class="count_livid">47</a>
                 
             </td>
         </tr>
@@ -1374,16 +1954,313 @@ document.addEventListener('DOMContentLoaded', function() {
     <table cellpadding="0" cellspacing="0" border="0" width="100%">
         <tr>
             
-            <td width="48" valign="top" align="center"><a href="/member/MajestySolor"><img src="https://cdn.v2ex.com/avatar/e89c/8c25/17318_xlarge.png?m=1777270881" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="MajestySolor" data-uid="17318" /></a></td>
+            <td width="48" valign="top" align="center"><a href="/member/TonyBoney"><img src="https://cdn.v2ex.com/gravatar/32c05cced92863cb5621bd18da1b3e6d?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="TonyBoney" data-uid="741348" /></a></td>
             <td width="10"></td>
             
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256975#reply9" class="topic-link" id="topic-link-1256975">‘AI 取代人类’的另一种解读</a></span>
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257077#reply4" class="topic-link" id="topic-link-1257077">Ubuntu 26.04 遇到 free -h 和 htop 查不出来的诡异 OOM 内存不足，由 KHO 的 CMA 导致</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/MajestySolor">MajestySolor</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:56:24 +08:00">42 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/studyrun">studyrun</a></strong></span>
+            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;1 &nbsp;&nbsp; </div><a class="node" href="/go/linux">Linux</a> &nbsp;•&nbsp; <strong><a href="/member/TonyBoney">TonyBoney</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 12:24:02 +08:00">9h 41m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/TonyBoney">TonyBoney</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
-                <a href="/t/1256975#reply9" class="count_livid">9</a>
+                <a href="/t/1257077#reply4" class="count_livid">4</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/jedeft"><img src="https://cdn.v2ex.com/gravatar/32c4cbaf6d15745f0c2582540a7038b7?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="jedeft" data-uid="427671" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256662#reply35" class="topic-link" id="topic-link-1256662">cursor 月限额用完了，怎么办？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/jedeft">jedeft</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 17:55:07 +08:00">4h 10m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/WorkerMatt">WorkerMatt</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256662#reply35" class="count_livid">35</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/lowfrontend"><img src="https://cdn.v2ex.com/avatar/ccf4/6bbb/475913_xlarge.png?m=1790146404" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="lowfrontend" data-uid="475913" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256934#reply23" class="topic-link" id="topic-link-1256934">用护照的日签页面，选择日本 visa，通过了 portal claude KYC</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/lowfrontend">lowfrontend</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 00:23:23 +08:00">21h 41m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/singer">singer</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256934#reply23" class="count_livid">23</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/wang1c"><img src="https://cdn.v2ex.com/avatar/d720/9dcc/603540_xlarge.png?m=1787987107" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="wang1c" data-uid="603540" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257052#reply3" class="topic-link" id="topic-link-1257052">2 年的老号弹 kyc 了 真难绷啊</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/wang1c">wang1c</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 10:54:31 +08:00">11h 10m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/AIMacMini">AIMacMini</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257052#reply3" class="count_livid">3</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/mercibeaucoupfu"><img src="https://cdn.v2ex.com/gravatar/105f769ca5743b614785d00154ea7238?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="mercibeaucoupfu" data-uid="494979" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256957#reply11" class="topic-link" id="topic-link-1256957">可能这就是自由开发者或者说 OPC 的困境，有活也轮不到你</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/mercibeaucoupfu">mercibeaucoupfu</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 10:50:46 +08:00">11h 14m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/LeoWA">LeoWA</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256957#reply11" class="count_livid">11</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/OUBA100"><img src="https://cdn.v2ex.com/avatar/8824/3ba1/694534_xlarge.png?m=1791620577" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="OUBA100" data-uid="694534" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256817#reply34" class="topic-link" id="topic-link-1256817">Opus 5.5 也做不到一步到位啊</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/OUBA100">OUBA100</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 22:40:18 +08:00">23h 24m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/vvenvw">vvenvw</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256817#reply34" class="count_livid">34</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/YanSeven"><img src="https://cdn.v2ex.com/avatar/3f22/feff/383743_xlarge.png?m=1793162364" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="YanSeven" data-uid="383743" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257036#reply1" class="topic-link" id="topic-link-1257036">chatgpt 的 dots 每隔两三天就把它内置的虚拟机环境换掉，何意义？？怕用户白嫖它虚拟机？</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/YanSeven">YanSeven</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 10:18:35 +08:00">11h 46m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/xJogger">xJogger</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1257036#reply1" class="count_livid">1</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/my2492"><img src="https://cdn.v2ex.com/gravatar/a80071a761a22d70457019e297d164b1?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="my2492" data-uid="466542" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256709#reply44" class="topic-link" id="topic-link-1256709">老号凌晨惨遭 kyc</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/my2492">my2492</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 21:13:51 +08:00">51 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/yancode">yancode</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256709#reply44" class="count_livid">44</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/wilddog"><img src="https://cdn.v2ex.com/avatar/83b7/1955/111458_xlarge.png?m=1767332478" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="wilddog" data-uid="111458" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256551#reply121" class="topic-link" id="topic-link-1256551">本月起正式停止续费 codex 了</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/wilddog">wilddog</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 01:42:57 +08:00">20h 22m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/wilddog">wilddog</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256551#reply121" class="count_livid">121</a>
+                
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="cell item">
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+            
+            <td width="48" valign="top" align="center"><a href="/member/lyfxmw"><img src="https://cdn.v2ex.com/gravatar/c5c63e1e7db067ee69a4265ee91dacbe?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="lyfxmw" data-uid="578722" /></a></td>
+            <td width="10"></td>
+            
+            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256954#reply15" class="topic-link" id="topic-link-1256954">ChatGPT plus 打着免费一个月的旗号也太狗了吧</a></span>
+            <div class="sep5"></div>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/lyfxmw">lyfxmw</a></strong> &nbsp;•&nbsp; <span title="2026-11-15 13:08:00 +08:00">8h 57m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/lyfxmw">lyfxmw</a></strong></span>
+            </td>
+            <td width="70" align="right" valign="middle">
+                
+                <a href="/t/1256954#reply15" class="count_livid">15</a>
                 
             </td>
         </tr>
@@ -1412,7 +2289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256766#reply56" class="topic-link" id="topic-link-1256766">有神仙老哥还没被 Claude 炸号、KYC 的吗，可以分享一下经验吗？</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/x0c">x0c</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:41:39 +08:00">1h 57m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/x0c">x0c</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:41:39 +08:00">1 day ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
             </td>
             <td width="70" align="right" valign="middle">
                 
@@ -1445,832 +2322,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257025#reply0" class="topic-link" id="topic-link-1257025">想用 claude 连接 higgs 的 mcp 是否危险</a></span>
             <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/00705460sda">00705460sda</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 13:47:20 +08:00">7h 51m ago</span></span>
+            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/00705460sda">00705460sda</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 13:47:20 +08:00">1 day ago</span></span>
             </td>
             <td width="70" align="right" valign="middle">
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/mercibeaucoupfu"><img src="https://cdn.v2ex.com/gravatar/105f769ca5743b614785d00154ea7238?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="mercibeaucoupfu" data-uid="494979" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256957#reply9" class="topic-link" id="topic-link-1256957">可能这就是自由开发者或者说 OPC 的困境，有活也轮不到你</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/mercibeaucoupfu">mercibeaucoupfu</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 17:56:22 +08:00">3h 42m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/way2create">way2create</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256957#reply9" class="count_livid">9</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/lyfxmw"><img src="https://cdn.v2ex.com/gravatar/c5c63e1e7db067ee69a4265ee91dacbe?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="lyfxmw" data-uid="578722" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256954#reply12" class="topic-link" id="topic-link-1256954">ChatGPT plus 打着免费一个月的旗号也太狗了吧</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/lyfxmw">lyfxmw</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:26:33 +08:00">12 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/lyfxmw">lyfxmw</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256954#reply12" class="count_livid">12</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/Tory12138"><img src="https://cdn.v2ex.com/gravatar/ca8de5ce310c84ec0abf08eb3f12b068?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="Tory12138" data-uid="818002" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256941#reply21" class="topic-link" id="topic-link-1256941">转战 Gemini 了， antigravity 里面还是可以用 opus5.5 的</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/Tory12138">Tory12138</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:46:57 +08:00">1h 52m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Tory12138">Tory12138</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256941#reply21" class="count_livid">21</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/firesh"><img src="https://cdn.v2ex.com/gravatar/b4fa6c0ca4363d2645d8f92c5456d500?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="firesh" data-uid="48592" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256980#reply5" class="topic-link" id="topic-link-1256980">开源了一个零依赖的 Go 二维码识别库 qore，识别率和速度都优于 ZXing</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/go">Go 编程语言</a> &nbsp;•&nbsp; <strong><a href="/member/firesh">firesh</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:02:43 +08:00">1h 36m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/dbskcnc">dbskcnc</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256980#reply5" class="count_livid">5</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/Princelings"><img src="https://cdn.v2ex.com/gravatar/17ace767711bf693c2dd4df4f74b96a6?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="Princelings" data-uid="674030" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256874#reply12" class="topic-link" id="topic-link-1256874">AI 能力这么高，为啥有的公司还搞 RN 和 flutter？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/Princelings">Princelings</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 18:30:50 +08:00">3h 8m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/TirionHo">TirionHo</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256874#reply12" class="count_livid">12</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/oosra"><img src="https://cdn.v2ex.com/gravatar/742725f089d0b6623f6509e984373c5d?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="oosra" data-uid="674010" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256567#reply23" class="topic-link" id="topic-link-1256567">寻下游,Claude-KYC</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/oosra">oosra</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:35:38 +08:00">3 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/itplanes01">itplanes01</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256567#reply23" class="count_livid">23</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/iv8d"><img src="https://cdn.v2ex.com/avatar/2273/0636/253364_large.png?m=1749459724" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="iv8d" data-uid="253364" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256746#reply31" class="topic-link" id="topic-link-1256746">codex 今天蠢得很</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/iv8d">iv8d</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:07:09 +08:00">2h 32m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/douyacai911">douyacai911</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256746#reply31" class="count_livid">31</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/blackantt"><img src="https://cdn.v2ex.com/gravatar/003f1b50994eb31aeb26105920380e3a?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="blackantt" data-uid="215985" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256947#reply5" class="topic-link" id="topic-link-1256947">请问国内哪个开源/商业 ip 查省/市 的数据库好用呢？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/blackantt">blackantt</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:10:38 +08:00">28 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/realpg">realpg</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256947#reply5" class="count_livid">5</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/thevenin1416"><img src="https://cdn.v2ex.com/avatar/ca0d/9c15/777344_xlarge.png?m=1792305775" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="thevenin1416" data-uid="777344" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1257006#reply6" class="topic-link" id="topic-link-1257006">感觉网上很难找到相对真实的 agent 企业实际项目，都是一些 demo</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/thevenin1416">thevenin1416</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:37:33 +08:00">1h 1m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/songray">songray</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1257006#reply6" class="count_livid">6</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/123128xyz"><img src="https://cdn.v2ex.com/gravatar/cbe9fb364138757f76e872e0ca8ee5f1?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="123128xyz" data-uid="571634" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256961#reply4" class="topic-link" id="topic-link-1256961">AI 没有创造力？你错了。压缩即智能，幻觉即创新</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/123128xyz">123128xyz</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 16:07:13 +08:00">5h 31m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Falcon1">Falcon1</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256961#reply4" class="count_livid">4</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/zt4027050"><img src="https://cdn.v2ex.com/avatar/45a2/526a/90798_large.png?m=1793692456" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="zt4027050" data-uid="90798" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256831#reply44" class="topic-link" id="topic-link-1256831">嫖 4.99 的 Gemini，暂停 GPT 一个月试试</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/zt4027050">zt4027050</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 21:29:19 +08:00">9 mins ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/zt4027050">zt4027050</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256831#reply44" class="count_livid">44</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/fengge0002"><img src="https://cdn.v2ex.com/avatar/adee/4254/138425_xlarge.png?m=1773883967" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="fengge0002" data-uid="138425" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256758#reply37" class="topic-link" id="topic-link-1256758">codex 实在是..重制卡也留不住用户了吧</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/openai">OpenAI</a> &nbsp;•&nbsp; <strong><a href="/member/fengge0002">fengge0002</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 12:40:45 +08:00">8h 58m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/kamisamayo">kamisamayo</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256758#reply37" class="count_livid">37</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/my2492"><img src="https://cdn.v2ex.com/gravatar/a80071a761a22d70457019e297d164b1?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="my2492" data-uid="466542" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256709#reply43" class="topic-link" id="topic-link-1256709">老号凌晨惨遭 kyc</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/my2492">my2492</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:09:28 +08:00">1h 29m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256709#reply43" class="count_livid">43</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/hrasky"><img src="https://cdn.v2ex.com/avatar/f52a/5875/46242_xlarge.png?m=1790595459" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="hrasky" data-uid="46242" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256926#reply5" class="topic-link" id="topic-link-1256926">推荐大家使用 Grok bot</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/hrasky">hrasky</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 10:17:45 +08:00">11h 21m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Felix120">Felix120</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256926#reply5" class="count_livid">5</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/likeonce"><img src="https://cdn.v2ex.com/gravatar/ec48b058e285de540bc34d6de2889c18?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="likeonce" data-uid="626402" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256719#reply23" class="topic-link" id="topic-link-1256719">我通过 googlepay 冲了 pro，然后就提示 KYC，回家弄护照，很快收到邮件。</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/likeonce">likeonce</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:20:06 +08:00">1h 19m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/blueorange">blueorange</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256719#reply23" class="count_livid">23</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/dafen7"><img src="https://cdn.v2ex.com/avatar/f336/114c/396585_large.png?m=1556011153" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="dafen7" data-uid="396585" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256701#reply91" class="topic-link" id="topic-link-1256701">微软是不是裁到大动脉了， Outlook 故障好几个小时了，美国客户会议都开不起来了</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"><li class="fa fa-chevron-up"></li> &nbsp;2 &nbsp;&nbsp; </div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/dafen7">dafen7</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 12:48:53 +08:00">8h 50m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/Pecado">Pecado</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256701#reply91" class="count_livid">91</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/jedeft"><img src="https://cdn.v2ex.com/gravatar/32c4cbaf6d15745f0c2582540a7038b7?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="jedeft" data-uid="427671" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256662#reply32" class="topic-link" id="topic-link-1256662">cursor 月限额用完了，怎么办？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/jedeft">jedeft</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 16:25:46 +08:00">5h 13m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/GarethChu">GarethChu</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256662#reply32" class="count_livid">32</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/szsgz"><img src="https://cdn.v2ex.com/avatar/c5b0/3cd6/193770_xlarge.png?m=1735801958" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="szsgz" data-uid="193770" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256735#reply35" class="topic-link" id="topic-link-1256735">Claude 真有那么好用吗？你们都用它做出了什么？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/szsgz">szsgz</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:53:15 +08:00">1h 45m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256735#reply35" class="count_livid">35</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/manbudezhu"><img src="https://cdn.v2ex.com/avatar/9bfb/f0c9/249481_large.png?m=1784202828" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="manbudezhu" data-uid="249481" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256856#reply13" class="topic-link" id="topic-link-1256856">做了一个免费的 AI 书签管理器，想听听大家还想要什么 AI 功能 #30</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/manbudezhu">manbudezhu</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 15:52:53 +08:00">5h 46m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/manbudezhu">manbudezhu</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256856#reply13" class="count_livid">13</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/leemysw"><img src="https://cdn.v2ex.com/avatar/7b3d/dce8/329464_xlarge.png?m=1794587374" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="leemysw" data-uid="329464" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256970#reply0" class="topic-link" id="topic-link-1256970">给 yovoice 做了个社区广场，可以分享自己 AI 音乐的作品，也可以听听别人的创作、找找灵感</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/programmer">程序员</a> &nbsp;•&nbsp; <strong><a href="/member/leemysw">leemysw</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 00:27:09 +08:00">21h 12m ago</span></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/qaz793"><img src="https://cdn.v2ex.com/gravatar/f5509b1a5185a3ba32c30b7dece719cd?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="qaz793" data-uid="74452" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256896#reply4" class="topic-link" id="topic-link-1256896">就这么说吧，我打算放弃 Claude</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/qaz793">qaz793</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 19:45:48 +08:00">1h 53m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256896#reply4" class="count_livid">4</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/bishop"><img src="https://cdn.v2ex.com/avatar/401f/d95b/13116_large.png?m=1710266651" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="bishop" data-uid="13116" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256767#reply17" class="topic-link" id="topic-link-1256767">开发者缴费一直失败</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/idev">iDev</a> &nbsp;•&nbsp; <strong><a href="/member/bishop">bishop</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 01:14:57 +08:00">20h 24m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/bishop">bishop</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256767#reply17" class="count_livid">17</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/QingzhouGo"><img src="https://cdn.v2ex.com/avatar/62b4/f9e5/579708_xlarge.png?m=1718676522" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="QingzhouGo" data-uid="579708" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256834#reply10" class="topic-link" id="topic-link-1256834">不想折腾 claude 官方账号， magpie 方案如何？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/QingzhouGo">QingzhouGo</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 20:16:03 +08:00">1h 23m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/2WalterW">2WalterW</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256834#reply10" class="count_livid">10</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/afkool"><img src="https://cdn.v2ex.com/gravatar/09069d134d28763cbeccac8b2e9fff3e?s=48&d=retro" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="afkool" data-uid="546565" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256936#reply4" class="topic-link" id="topic-link-1256936">Google one 和 Chatgpt 比较何如？</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/google">Google</a> &nbsp;•&nbsp; <strong><a href="/member/afkool">afkool</a></strong> &nbsp;•&nbsp; <span title="2026-11-13 23:40:20 +08:00">21h 58m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/soulflysimple123">soulflysimple123</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256936#reply4" class="count_livid">4</a>
-                
-            </td>
-        </tr>
-    </table>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="cell item">
-    <table cellpadding="0" cellspacing="0" border="0" width="100%">
-        <tr>
-            
-            <td width="48" valign="top" align="center"><a href="/member/kakakeven"><img src="https://cdn.v2ex.com/avatar/4d2b/9f82/118040_xlarge.png?m=1794571024" class="avatar" border="0" align="default" width="48" style="width: 48px; max-height: 48px;" alt="kakakeven" data-uid="118040" /></a></td>
-            <td width="10"></td>
-            
-            <td width="auto" valign="middle"><span class="item_title"><a href="/t/1256932#reply12" class="topic-link" id="topic-link-1256932">Claude KYC 后被封，申诉后居然解封了</a></span>
-            <div class="sep5"></div>
-            <span class="topic_info"><div class="votes"></div><a class="node" href="/go/claude">Claude</a> &nbsp;•&nbsp; <strong><a href="/member/kakakeven">kakakeven</a></strong> &nbsp;•&nbsp; <span title="2026-11-14 10:31:11 +08:00">11h 7m ago</span> &nbsp;•&nbsp; Lastly replied by <strong><a href="/member/likeonce">likeonce</a></strong></span>
-            </td>
-            <td width="70" align="right" valign="middle">
-                
-                <a href="/t/1256932#reply12" class="count_livid">12</a>
                 
             </td>
         </tr>
@@ -2308,13 +2362,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="fr">
                         <a href="https://www.digitalocean.com/?refcode=1b51f1a7651d" target="_blank"><div id="DigitalOcean"></div></a>
                     </div>
-                    <strong><a href="/about" class="dark" target="_self">About</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://edge.v2ex.com/help" class="dark" target="_self">Help</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/pro/about" class="dark" target="_self">Advertise</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://blog.v2ex.com/" class="dark" target="_blank">Blog</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://edge.v2ex.com/help/api" class="dark" target="_self">API</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/faq" class="dark" target="_self">FAQ</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/privacy" class="dark" target="_self">Privacy</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://edge.v2ex.com/solana" class="dark" target="_self">Solana</a> &nbsp; <span class="snow">·</span> &nbsp; 2035 Online</strong> &nbsp; <span class="fade">Highest 6679</span> &nbsp; <span class="snow">·</span> &nbsp; <a href="/select/language" class="f11"><img src="/static/img/language.png?v=6a5cfa731dc71a3769f6daace6784739" width="16" align="absmiddle" id="ico-select-language" /> &nbsp; Select Language</a>
+                    <strong><a href="/about" class="dark" target="_self">About</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://edge.v2ex.com/help" class="dark" target="_self">Help</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/pro/about" class="dark" target="_self">Advertise</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://blog.v2ex.com/" class="dark" target="_blank">Blog</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://edge.v2ex.com/help/api" class="dark" target="_self">API</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/faq" class="dark" target="_self">FAQ</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/privacy" class="dark" target="_self">Privacy</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="https://edge.v2ex.com/solana" class="dark" target="_self">Solana</a> &nbsp; <span class="snow">·</span> &nbsp; 2114 Online</strong> &nbsp; <span class="fade">Highest 6679</span> &nbsp; <span class="snow">·</span> &nbsp; <a href="/select/language" class="f11"><img src="/static/img/language.png?v=6a5cfa731dc71a3769f6daace6784739" width="16" align="absmiddle" id="ico-select-language" /> &nbsp; Select Language</a>
                     <div class="sep20"></div>
                     创意工作者们的社区
                     <div class="sep5"></div>
                     World is powered by solitude
                     <div class="sep20"></div>
-                    <span class="small fade">VERSION: 3.9.8.5 · 7ms · <a href="/worldclock#utc">UTC 13:39</a> · <a href="/worldclock#pvg">PVG 21:39</a> · <a href="/worldclock#lax">LAX 05:39</a> · <a href="/worldclock#jfk">JFK 08:39</a><br />♥ Do have faith in what you're doing.</span>
+                    <span class="small fade">VERSION: 3.9.8.5 · 9ms · <a href="/worldclock#utc">UTC 14:05</a> · <a href="/worldclock#pvg">PVG 22:05</a> · <a href="/worldclock#lax">LAX 06:05</a> · <a href="/worldclock#jfk">JFK 09:05</a><br />♥ Do have faith in what you're doing.</span>
                 <div class="sep10"></div>
             </div>
         </div>
@@ -2341,7 +2395,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
 
     
-    
+    <script>document.addEventListener('DOMContentLoaded', function () { setupThemeSwitches(); });</script>
 <button class="scroll-top" data-scroll="up" type="button"><span>❯<span></button>
 </body>
 </html>
